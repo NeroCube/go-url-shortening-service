@@ -38,8 +38,7 @@ curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' ht
 - [ ] Dockerize project
 - [ ] Add Redis cache makes access performance better
 - [ ] Use PostgreSQL as long-term storage
-- [ ] Encrypt URLs to make them shorter
-- [ ] Decrypt short URL
+- [ ] Hash URLs to make them shorter
 - [ ] Go HTTP Redirect
 - [ ] Unit test
 - [ ] Refactor
