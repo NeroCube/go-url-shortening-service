@@ -41,4 +41,5 @@ curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' ht
 - [ ] Encrypt URLs to make them shorter
 - [ ] Decrypt short URL
 - [ ] Go HTTP Redirect
+- [ ] Unit test
 - [ ] Refactor
