@@ -20,7 +20,7 @@ curl -X GET "http://localhost:8000/"
 curl -X GET "http://localhost:8000/urls"
 ```
 
-## Get specific url with urlId
+## Get specific url with url Id
 
 ```
 curl -X GET "http://localhost:8000/urls/{urlId}"
