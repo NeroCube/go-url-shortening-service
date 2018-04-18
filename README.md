@@ -6,6 +6,8 @@ To run this exmaple, from the root of this project:
 
 ```
 go run *.go
+
+go get github.com/gorilla/mux
 ```
 
 ## Hello Service
