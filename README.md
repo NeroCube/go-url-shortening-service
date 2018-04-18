@@ -5,9 +5,8 @@
 To run this exmaple, from the root of this project:
 
 ```
-go run *.go
-
 go get github.com/gorilla/mux
+go run *.go
 ```
 
 ## Hello Service
