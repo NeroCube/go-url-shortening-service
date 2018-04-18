@@ -5,8 +5,9 @@
 To run this exmaple, from the root of this project:
 
 ```
-go get github.com/gorilla/mux
-go run *.go
+docker build -t="go-url-shortening-service" .
+docker run go-url-shortening-service
+docker-compose up
 ```
 
 ## Hello Service
@@ -36,7 +37,7 @@ curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' ht
 ## To do
 
 - [x] Basic Restful API
-- [ ] Dockerize project
+- [x] Dockerize project
 - [ ] Add Redis cache makes access performance better
 - [ ] Use PostgreSQL as long-term storage
 - [ ] Hash URLs to make them shorter
