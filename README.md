@@ -9,6 +9,10 @@ docker build -t="go-url-shortening-service" .
 docker run go-url-shortening-service
 docker-compose up
 ```
+You can check your docker-compose state the command below
+```
+docker-compose ps
+```
 
 ## Hello Service
 
