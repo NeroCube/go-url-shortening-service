@@ -7,6 +7,7 @@ services:
       - 8000:8000
     depends_on:
       - app_redis
+      - app_postgres
   app_redis:
     restart: always
     container_name: redis
@@ -15,3 +16,11 @@ services:
       - 6379:6379
     volumes:
       - /tmp/redis-data:/tmp
+  app_postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 'mypass'
+      POSTGRES_USER: 'guss_db'
+      POSTGRES_DB: 'guss_db'
+    ports:
+      - 5433:5433
