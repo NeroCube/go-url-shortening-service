@@ -33,7 +33,7 @@ var routes = Routes{
 	Route{
 		"URLShow",
 		"GET",
-		"/urls/{urlId}",
+		"/urls/{urlID}",
 		URLShow,
 	},
 }

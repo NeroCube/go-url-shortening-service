@@ -25,12 +25,12 @@ func URLIndex(w http.ResponseWriter, r *http.Request) {
 
 func URLShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	var urlId int
+	var urlID int
 	var err error
-	if urlId, err = strconv.Atoi(vars["urlId"]); err != nil {
+	if urlID, err = strconv.Atoi(vars["urlID"]); err != nil {
 		panic(err)
 	}
-	urlmap := RepoFindURLMap(urlId)
+	urlmap := RepoFindURLMap(urlID)
 	if urlmap.ID > 0 {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
