@@ -1,21 +1,19 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
-
-	"./config"
 )
 
 func main() {
+	var service_port string
 
-	// Read config
-	config, err := config.FromDefault()
-	if err != nil {
-		log.Fatal(err)
-	}
+	flag.StringVar(&service_port, "port", "8000", "The port you want to run your service")
+	flag.Parse()
 
 	router := NewRouter()
 
-	log.Fatal(http.ListenAndServe(config.Server.Port, router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", service_port), router))
 }
