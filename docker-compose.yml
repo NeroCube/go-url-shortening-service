@@ -4,7 +4,7 @@ services:
     restart: always
     image: go-url-shortening-service
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - app_redis
       - app_postgres
