@@ -3,8 +3,9 @@ FROM golang:alpine
 WORKDIR /go/src/app
 COPY . .
 
-RUN go get -u github.com/go-redis/redis
-RUN go get -u github.com/gorilla/mux
-RUN go install -v ./...
+RUN apk add --no-cache git mercurial \
+&& go get -d -v ./... \
+&& go install -v ./... \
+&& apk del git mercurial
 
 CMD ["app"]
