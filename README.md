@@ -5,8 +5,6 @@
 To run this exmaple, from the root of this project:
 
 ```
-docker build -t="go-url-shortening-service" .
-docker run go-url-shortening-service
 docker-compose up
 ```
 You can check your docker-compose state the command below
