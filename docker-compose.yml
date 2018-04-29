@@ -2,7 +2,7 @@ version: '3'
 services:
   go-url-shortening-service:
     restart: always
-    image: go-url-shortening-service
+    build: .
     ports:
       - "8000:8000"
     depends_on:
