@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+
+	"nerocube/go-url-shortening-service/encode"
 )
 
 var currentId int
@@ -31,7 +33,7 @@ func RepoFindURLMap(id int) URLMap {
 func RepoCreateURLMap(t URLMap) URLMap {
 	currentId += 1
 	t.ID = currentId
-	t.ShortenURL = TinyURL(6)
+	t.ShortenURL = encode.TinyURL(6)
 	t.Created = time.Now()
 	urlmaps = append(urlmaps, t)
 	return t
