@@ -8,6 +8,9 @@ services:
     depends_on:
       - app_redis
       - app_postgres
+    links:
+      - app_redis
+      - app_postgres
   app_redis:
     restart: always
     container_name: redis
