@@ -1,12 +1,11 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"math/rand"
 	"time"
 
-	"nerocube/go-url-shortening-service/encode"
+	"github.com/go-redis/redis"
+	"github.com/nerocube/go-url-shortening-service/encode"
 )
 
 var currentId int
@@ -34,6 +33,7 @@ func RepoCreateURLMap(t URLMap) URLMap {
 	currentId += 1
 	t.ID = currentId
 	t.ShortenURL = encode.TinyURL(6)
+	ExampleNewClient()
 	t.Created = time.Now()
 	urlmaps = append(urlmaps, t)
 	return t
@@ -49,15 +49,14 @@ func RepoDestroyURLMap(id int) error {
 	return fmt.Errorf("Could not find URLMap with id of %d to delete", id)
 }
 
-func TinyURL(random_length int) string {
-	var b bytes.Buffer
-	var charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+func ExampleNewClient() {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "app_redis:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
 
-	for i := 0; i < random_length; i++ {
-		rand.Seed(time.Now().UnixNano())
-		// the length of charSet is 62
-		b.WriteString(fmt.Sprintf("%v", string(charSet[rand.Intn(62)])))
-	}
-
-	return b.String()
+	pong, err := client.Ping().Result()
+	fmt.Println(pong, err)
+	// Output: PONG <nil>
 }
