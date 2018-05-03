@@ -40,9 +40,9 @@ curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' ht
 
 - [x] Basic Restful API
 - [x] Dockerize project
-- [ ] Add Redis cache makes access performance better
+- [x] Add Redis cache makes access performance better
 - [ ] Use PostgreSQL as long-term storage
-- [ ] Hash URLs to make them shorter
+- [x] Hash URLs to make them shorter
 - [ ] Go HTTP Redirect
 - [ ] Unit test
 - [ ] Refactor
