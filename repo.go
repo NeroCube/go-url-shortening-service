@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-redis/redis"
 	"github.com/nerocube/go-url-shortening-service/encode"
+	"github.com/nerocube/go-url-shortening-service/redis"
 )
 
 var currentId int
@@ -31,9 +31,9 @@ func RepoFindURLMap(id int) URLMap {
 //this is bad, I don't think it passes race conditions
 func RepoCreateURLMap(t URLMap) URLMap {
 	currentId += 1
+	redis.New()
 	t.ID = currentId
 	t.ShortenURL = encode.TinyURL(6)
-	ExampleNewClient()
 	t.Created = time.Now()
 	urlmaps = append(urlmaps, t)
 	return t
@@ -47,16 +47,4 @@ func RepoDestroyURLMap(id int) error {
 		}
 	}
 	return fmt.Errorf("Could not find URLMap with id of %d to delete", id)
-}
-
-func ExampleNewClient() {
-	client := redis.NewClient(&redis.Options{
-		Addr:     "app_redis:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-
-	pong, err := client.Ping().Result()
-	fmt.Println(pong, err)
-	// Output: PONG <nil>
 }
