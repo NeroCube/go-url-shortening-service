@@ -48,3 +48,11 @@ func Decr(key string) int64 {
 	}
 	return result
 }
+
+func Exists(key string) int {
+	result, err := connect.Exists(key).Result()
+	if err != nil {
+		panic(err)
+	}
+	return int(result)
+}
