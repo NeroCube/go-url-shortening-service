@@ -8,12 +8,11 @@ import (
 	"github.com/nerocube/go-url-shortening-service/redis"
 )
 
-var currentId int
-
 var urlmaps URLMaps
 
 // Give us some seed data
 func init() {
+	redis.Set("counter", "0", 0)
 	RepoCreateURLMap(URLMap{OriginalURL: "https://github.com"})
 	RepoCreateURLMap(URLMap{OriginalURL: "https://google.com/"})
 }
@@ -30,10 +29,17 @@ func RepoFindURLMap(id int) URLMap {
 
 //this is bad, I don't think it passes race conditions
 func RepoCreateURLMap(t URLMap) URLMap {
-	currentId += 1
-	redis.New()
-	t.ID = currentId
-	t.ShortenURL = encode.TinyURL(6)
+	TinyURL := ""
+	for {
+		TinyURL = encode.TinyURL(6)
+		isDuplicate := redis.Exists(TinyURL)
+		if isDuplicate == 0 {
+			break
+		}
+	}
+	redis.Set(TinyURL, t.OriginalURL, 0)
+	t.ShortenURL = TinyURL
+	t.ID = int(redis.Incr("counter"))
 	t.Created = time.Now()
 	urlmaps = append(urlmaps, t)
 	return t
