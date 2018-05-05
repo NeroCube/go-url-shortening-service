@@ -32,8 +32,8 @@ func RepoCreateURLMap(t URLMap) URLMap {
 	TinyURL := ""
 	for {
 		TinyURL = encode.TinyURL(6)
-		isDuplicate := redis.Exists(TinyURL)
-		if isDuplicate == 0 {
+		isExists := redis.Exists(TinyURL)
+		if !isExists {
 			break
 		}
 	}

@@ -85,7 +85,7 @@ func URLRedirect(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	tinyURL := vars["tinyURL"]
 	isExists := redis.Exists(tinyURL)
-	if isExists == 1 {
+	if isExists {
 		http.Redirect(w, r, redis.Get(tinyURL), 301)
 	} else {
 		fmt.Fprint(w, "tinyURL not be used\n")
