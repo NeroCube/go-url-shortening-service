@@ -49,10 +49,16 @@ func Decr(key string) int64 {
 	return result
 }
 
-func Exists(key string) int {
+func Exists(key string) bool {
 	result, err := connect.Exists(key).Result()
 	if err != nil {
 		panic(err)
 	}
-	return int(result)
+	if result == 1 {
+		return true
+
+	} else {
+		return false
+	}
+
 }
