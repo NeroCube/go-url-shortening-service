@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/nerocube/go-url-shortening-service/redis"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -77,5 +78,16 @@ func URLCreate(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
 		panic(err)
+	}
+}
+
+func URLRedirect(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	tinyURL := vars["tinyURL"]
+	isExists := redis.Exists(tinyURL)
+	if isExists == 1 {
+		http.Redirect(w, r, redis.Get(tinyURL), 301)
+	} else {
+		fmt.Fprint(w, "tinyURL not be used\n")
 	}
 }

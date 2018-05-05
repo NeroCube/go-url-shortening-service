@@ -36,4 +36,10 @@ var routes = Routes{
 		"/urls/{urlID}",
 		URLShow,
 	},
+	Route{
+		"URLRedirect",
+		"GET",
+		"/{tinyURL}",
+		URLRedirect,
+	},
 }
