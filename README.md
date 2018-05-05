@@ -7,10 +7,6 @@ To run this exmaple, from the root of this project:
 ```
 docker-compose up
 ```
-You can check your docker-compose state the command below
-```
-docker-compose ps
-```
 
 ## Hello Service
 
@@ -18,22 +14,16 @@ docker-compose ps
 curl -X GET "http://localhost:8000/"
 ```
 
-## Get All Url Maps
-
-```
-curl -X GET "http://localhost:8000/urls"
-```
-
-## Get specific url with url Id
-
-```
-curl -X GET "http://localhost:8000/urls/{urlId}"
-```
-
 ## Create your own short url
 
 ```
 curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' http://localhost:8000/urls
+```
+
+## Redirect to your original url with tinyURL
+
+```
+curl -X GET "http://localhost:8000/{tinyURL}"
 ```
 
 ## To do
@@ -43,6 +33,6 @@ curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' ht
 - [x] Add Redis cache makes access performance better
 - [ ] Use PostgreSQL as long-term storage
 - [x] Hash URLs to make them shorter
-- [ ] Go HTTP Redirect
+- [x] Go HTTP Redirect
 - [ ] Unit test
 - [ ] Refactor
