@@ -1,29 +1,38 @@
-version: '3'
+version: "3"
 services:
   go-url-shortening-service:
-    restart: always
+    restart: "always"
     build: .
     ports:
       - "8000:8000"
     depends_on:
-      - app_redis
-      - app_postgres
+      - "app_redis"
+      - "app_postgres"
     links:
-      - app_redis
-      - app_postgres
+      - "app_redis"
+      - "app_postgres"
   app_redis:
-    restart: always
-    container_name: redis
-    image: redis:alpine
+    restart: "always"
+    container_name: "redis"
+    image: "redis:alpine"
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
-      - /tmp/redis-data:/tmp
+      - "/tmp/redis-data:/tmp"
   app_postgres:
-    image: postgres
+    image: "postgres"
     environment:
-      POSTGRES_PASSWORD: 'mypass'
-      POSTGRES_USER: 'guss_db'
-      POSTGRES_DB: 'guss_db'
+      POSTGRES_PASSWORD: "mypass"
+      POSTGRES_USER: "nero"
+      POSTGRES_DB: "tiny_service"
     ports:
-      - 5433:5433
+      - "5433:5433"
+  app_pgadmin:
+    image: "dpage/pgadmin4"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "nerocube.tw@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "mypass"
+    links:
+      - "app_postgres"
+    ports:
+      - "5050:80"
