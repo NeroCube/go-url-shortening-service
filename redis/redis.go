@@ -1,6 +1,9 @@
 package redis
 
 import (
+	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -9,10 +12,15 @@ import (
 var connect = New()
 
 func New() redis.Client {
+	address := fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT"))
+	password := os.Getenv("REDIS_PASSWORD")
+	database, err := strconv.Atoi(os.Getenv("REDIS_DB"))
+	checkErr(err)
+
 	client := redis.NewClient(&redis.Options{
-		Addr:     "app_redis:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     address,
+		Password: password,
+		DB:       database,
 	})
 
 	return *client
@@ -61,4 +69,10 @@ func Exists(key string) bool {
 		return false
 	}
 
+}
+
+func checkErr(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
