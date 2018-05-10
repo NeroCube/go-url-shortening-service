@@ -29,12 +29,12 @@ services:
       - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     ports:
       - "5433:5433"
-  app_pgadmin:
-    image: "dpage/pgadmin4"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "nerocube.tw@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "mypass"
-    links:
-      - "app_postgres"
-    ports:
-      - "5050:80"
+  # app_pgadmin:
+  #   image: "dpage/pgadmin4"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "nerocube.tw@gmail.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "mypass"
+  #   links:
+  #     - "app_postgres"
+  #   ports:
+  #     - "5050:80"
