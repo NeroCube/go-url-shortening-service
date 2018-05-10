@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/nerocube/go-url-shortening-service/encode"
+	"github.com/nerocube/go-url-shortening-service/postgres"
 	"github.com/nerocube/go-url-shortening-service/redis"
 )
 
@@ -13,6 +14,7 @@ var urlmaps URLMaps
 // Give us some seed data
 func init() {
 	redis.Set("counter", "0", 0)
+	postgres.Connect()
 	RepoCreateURLMap(URLMap{OriginalURL: "https://github.com"})
 	RepoCreateURLMap(URLMap{OriginalURL: "https://google.com/"})
 }
