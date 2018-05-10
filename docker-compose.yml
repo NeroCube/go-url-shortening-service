@@ -25,6 +25,8 @@ services:
       POSTGRES_PASSWORD: "mypass"
       POSTGRES_USER: "nero"
       POSTGRES_DB: "tiny_service"
+    volumes: 
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     ports:
       - "5433:5433"
   app_pgadmin:
