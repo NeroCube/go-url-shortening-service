@@ -38,7 +38,6 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE public.url_map (
-    id integer NOT NULL,
     original_url text NOT NULL,
     tiny_url text NOT NULL,
     created_at time with time zone NOT NULL
@@ -48,47 +47,12 @@ CREATE TABLE public.url_map (
 ALTER TABLE public.url_map OWNER TO nero;
 
 --
--- Name: url_map_id_seq; Type: SEQUENCE; Schema: public; Owner: nero
---
-
-CREATE SEQUENCE public.url_map_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.url_map_id_seq OWNER TO nero;
-
---
--- Name: url_map_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nero
---
-
-ALTER SEQUENCE public.url_map_id_seq OWNED BY public.url_map.id;
-
-
---
--- Name: url_map id; Type: DEFAULT; Schema: public; Owner: nero
---
-
-ALTER TABLE ONLY public.url_map ALTER COLUMN id SET DEFAULT nextval('public.url_map_id_seq'::regclass);
-
-
---
 -- Data for Name: url_map; Type: TABLE DATA; Schema: public; Owner: nero
 --
 
-COPY public.url_map (id, original_url, tiny_url, created_at) FROM stdin;
+COPY public.url_map (original_url, tiny_url, created_at) FROM stdin;
+https://github.com/	QU5XzV	17:20:24.239648+00
 \.
-
-
---
--- Name: url_map_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nero
---
-
-SELECT pg_catalog.setval('public.url_map_id_seq', 1, false);
 
 
 --
@@ -96,7 +60,7 @@ SELECT pg_catalog.setval('public.url_map_id_seq', 1, false);
 --
 
 ALTER TABLE ONLY public.url_map
-    ADD CONSTRAINT url_map_pkey PRIMARY KEY (id, original_url);
+    ADD CONSTRAINT url_map_pkey PRIMARY KEY (original_url);
 
 
 --
