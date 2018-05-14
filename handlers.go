@@ -72,12 +72,17 @@ func URLCreate(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-
-	t := RepoCreateURLMap(urlmap)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusCreated)
-	if err := json.NewEncoder(w).Encode(t); err != nil {
-		panic(err)
+	TinyURL := RepoFindTinyURL(urlmap.OriginalURL)
+	if TinyURL != "" {
+		response := fmt.Sprintf("The Url has been established. The TinyURL is %s\n", TinyURL)
+		fmt.Fprint(w, response)
+	} else {
+		t := RepoCreateURLMap(urlmap)
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusCreated)
+		if err := json.NewEncoder(w).Encode(t); err != nil {
+			panic(err)
+		}
 	}
 }
 

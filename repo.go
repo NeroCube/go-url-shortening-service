@@ -29,7 +29,7 @@ func RepoFindURLMap(id int) URLMap {
 }
 
 func RepoCreateURLMap(t URLMap) URLMap {
-	TinyURL := SelectTinyURL(t.OriginalURL)
+	TinyURL := ""
 
 	for {
 		TinyURL = encode.TinyURL(6)
@@ -57,15 +57,16 @@ func RepoDestroyURLMap(id int) error {
 }
 
 func RepoFindOriginalURL(tiny_url string) string {
-	if redis.Exists(tiny_url) {
-		return redis.Get(tiny_url)
-	}
-
+	// todo: add redis find tiny_url here
 	if IsExistsTinyURL(tiny_url) {
 		return SelectOriginalURL(tiny_url)
 	}
 
 	return ""
+}
+
+func RepoFindTinyURL(original_url string) string {
+	return SelectTinyURL(original_url)
 }
 
 func InsertURLMap(t URLMap) {
@@ -89,8 +90,9 @@ func SelectOriginalURL(TinyURL string) string {
 
 	original_url := ""
 	sqlStatement := "SELECT original_url FROM public.url_map WHERE tiny_url = $1;"
-	err = db.QueryRow(sqlStatement, TinyURL).Scan(&original_url)
-	checkErr(err)
+	if err := db.QueryRow(sqlStatement, TinyURL).Scan(&original_url); err != nil {
+		return ""
+	}
 
 	return original_url
 }
@@ -103,7 +105,9 @@ func SelectTinyURL(OriginalURL string) string {
 	tiny_url := ""
 	sqlStatement := "SELECT tiny_url FROM public.url_map WHERE original_url = $1;"
 	err = db.QueryRow(sqlStatement, OriginalURL).Scan(&tiny_url)
-	checkErr(err)
+	if err := db.QueryRow(sqlStatement, OriginalURL).Scan(&tiny_url); err != nil {
+		return ""
+	}
 
 	return tiny_url
 }
