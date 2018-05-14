@@ -11,6 +11,16 @@ services:
     links:
       - "app_redis"
       - "app_postgres"
+    environment:
+      POSTGRES_PASSWORD: "mypass"
+      POSTGRES_USER: "nero"
+      POSTGRES_DB: "tiny_service"
+      POSTGRES_HOST: "app_postgres"
+      POSTGRES_PORT: "5432"
+      REDIS_HOST: "app_redis"
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ""
+      REDIS_DB: "0"
   app_redis:
     restart: "always"
     container_name: "redis"
@@ -28,7 +38,7 @@ services:
     volumes: 
       - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     ports:
-      - "5433:5433"
+      - "5432:5432"
   # app_pgadmin:
   #   image: "dpage/pgadmin4"
   #   environment:
