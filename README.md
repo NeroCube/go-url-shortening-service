@@ -31,8 +31,9 @@ curl -X GET "http://localhost:8000/{tinyURL}"
 - [x] Basic Restful API
 - [x] Dockerize project
 - [x] Add Redis cache makes access performance better
-- [ ] Use PostgreSQL as long-term storage
+- [x] Use PostgreSQL as long-term storage
 - [x] Hash URLs to make them shorter
 - [x] Go HTTP Redirect
 - [ ] Unit test
 - [ ] Refactor
+- [ ] Golang vendor
