@@ -28,45 +28,34 @@ func New() redis.Client {
 
 func Set(key string, value string, expiration_second int32) {
 	err := connect.Set(key, value, time.Duration(expiration_second)*time.Second).Err()
-	if err != nil {
-		panic(err)
-	}
+	checkErr(err)
 }
 
 func Get(key string) string {
 	val, err := connect.Get(key).Result()
-	if err != nil {
-		panic(err)
-	}
+	checkErr(err)
 	return val
 }
 
 func Incr(key string) int64 {
 	result, err := connect.Incr(key).Result()
-	if err != nil {
-		panic(err)
-	}
+	checkErr(err)
 	return result
 }
 
 func Decr(key string) int64 {
 	result, err := connect.Decr(key).Result()
-	if err != nil {
-		panic(err)
-	}
+	checkErr(err)
 	return result
 }
 
-func Exists(key string) bool {
+func Exists(key string) (bool, error) {
 	result, err := connect.Exists(key).Result()
-	if err != nil {
-		panic(err)
-	}
 	if result == 1 {
-		return true
+		return true, err
 
 	} else {
-		return false
+		return false, err
 	}
 
 }
