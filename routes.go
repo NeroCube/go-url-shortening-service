@@ -19,22 +19,10 @@ var routes = Routes{
 		Index,
 	},
 	Route{
-		"URLIndex",
-		"GET",
-		"/urls",
-		URLIndex,
-	},
-	Route{
 		"URLCreate",
 		"POST",
 		"/urls",
 		URLCreate,
-	},
-	Route{
-		"URLShow",
-		"GET",
-		"/urls/{urlID}",
-		URLShow,
 	},
 	Route{
 		"URLRedirect",

@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -18,16 +17,6 @@ func init() {
 	redis.Set("counter", "0", 0)
 }
 
-func RepoFindURLMap(id int) URLMap {
-	for _, t := range urlmaps {
-		if t.ID == id {
-			return t
-		}
-	}
-	// return empty URLMap if not found
-	return URLMap{}
-}
-
 func RepoCreateURLMap(t URLMap) URLMap {
 	TinyURL := ""
 
@@ -37,28 +26,27 @@ func RepoCreateURLMap(t URLMap) URLMap {
 			break
 		}
 	}
-
-	redis.Set(TinyURL, t.OriginalURL, 0)
+	// Set a cache expiration period of one week
+	redis.Set(TinyURL, t.OriginalURL, 604800)
+	t.ID = redis.Incr("counter")
 	t.ShortenURL = TinyURL
 	t.Created = time.Now()
 	InsertURLMap(t)
-	urlmaps = append(urlmaps, t)
 	return t
-}
-
-func RepoDestroyURLMap(id int) error {
-	for i, t := range urlmaps {
-		if t.ID == id {
-			urlmaps = append(urlmaps[:i], urlmaps[i+1:]...)
-			return nil
-		}
-	}
-	return fmt.Errorf("Could not find URLMap with id of %d to delete", id)
 }
 
 func RepoFindOriginalURL(tiny_url string) string {
 	// todo: add redis find tiny_url here
+
+	isInCache, _ := redis.Exists(tiny_url)
+	if isInCache {
+		return redis.Get(tiny_url)
+	}
+
 	if IsExistsTinyURL(tiny_url) {
+		OriginalURL := SelectOriginalURL(tiny_url)
+		// Set a cache expiration period of one week
+		redis.Set(tiny_url, OriginalURL, 604800)
 		return SelectOriginalURL(tiny_url)
 	}
 
