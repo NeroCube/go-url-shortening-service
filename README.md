@@ -34,6 +34,6 @@ curl -X GET "http://localhost:8000/{tinyURL}"
 - [x] Use PostgreSQL as long-term storage
 - [x] Hash URLs to make them shorter
 - [x] Go HTTP Redirect
-- [ ] Unit test
+- [x] Unit test
+- [x] Package Management for Golang 
 - [ ] Refactor
-- [ ] Golang vendor
