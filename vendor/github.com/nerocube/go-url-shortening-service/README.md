@@ -17,7 +17,7 @@ curl -X GET "http://localhost:8000/"
 ## Create your own short url
 
 ```
-curl -H "Content-Type: application/json" -d '{"original_url":"https://github.com/NeroCube"}' http://localhost:8000/urls
+curl -H "Content-Type: application/json" -d '{"original_url":{original_url}}' http://localhost:8000/urls
 ```
 
 ## Redirect to your original url with tinyURL
@@ -25,10 +25,7 @@ curl -H "Content-Type: application/json" -d '{"original_url":"https://github.com
 ```
 curl -X GET "http://localhost:8000/{tinyURL}"
 ```
-## Update all dependencies with glide
-```
-glide update --all-dependencies --resolve-current
-```
+
 ## To do
 
 - [x] Basic Restful API

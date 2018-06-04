@@ -1,0 +1,12 @@
+package: .
+import:
+- package: github.com/go-redis/redis
+  version: ~6.12.0
+- package: github.com/gorilla/mux
+  version: ~1.6.2
+- package: github.com/lib/pq
+- package: github.com/nerocube/go-url-shortening-service
+  subpackages:
+  - encode
+  - postgres
+  - redis
