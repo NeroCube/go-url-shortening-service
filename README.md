@@ -40,3 +40,4 @@ glide update --all-dependencies --resolve-current
 - [x] Unit test
 - [x] Package Management for Golang 
 - [ ] Refactor
+- [ ] License
